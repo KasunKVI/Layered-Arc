@@ -1,13 +1,13 @@
-package bo;
+package bo.custom.impl;
 
-import dao.custom.ItemDAO;
+import bo.custom.ItemBO;
 import dao.custom.impl.ItemDAOImpl;
 import model.ItemDTO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class ItemBOImpl implements ItemBO{
+public class ItemBOImpl implements ItemBO {
 
     ItemDAOImpl itemDAO = new ItemDAOImpl();
 
@@ -50,13 +50,6 @@ public class ItemBOImpl implements ItemBO{
     public String generateNewItemId() throws SQLException, ClassNotFoundException {
 
         return itemDAO.generateNewId();
-
-    }
-
-    @Override
-    public ItemDTO searchItem(String newValue) throws SQLException, ClassNotFoundException {
-
-        return itemDAO.search(newValue);
 
     }
 }

@@ -1,14 +1,13 @@
-package bo;
+package bo.custom.impl;
 
-import dao.custom.CustomerDAO;
+import bo.custom.CustomerBO;
 import dao.custom.impl.CustomerDAOImpl;
 import model.CustomerDTO;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerBOImpl implements CustomerBO{
+public class CustomerBOImpl implements CustomerBO {
 
     CustomerDAOImpl customerDAO = new CustomerDAOImpl();
 
@@ -52,10 +51,4 @@ public class CustomerBOImpl implements CustomerBO{
 
     }
 
-    @Override
-    public CustomerDTO searchCustomer(String newValue) throws SQLException, ClassNotFoundException {
-
-        return customerDAO.search(newValue);
-
-    }
 }

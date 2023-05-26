@@ -1,4 +1,4 @@
-package bo;
+package bo.custom;
 
 import model.ItemDTO;
 
@@ -19,5 +19,4 @@ public interface ItemBO {
 
     public String generateNewItemId() throws SQLException, ClassNotFoundException;
 
-    public ItemDTO searchItem(String newValue) throws SQLException, ClassNotFoundException;
 }
