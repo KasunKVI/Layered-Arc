@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String>{
+public class CustomerDAOImpl implements CustomerDAO{
 
     @Override
     public List<CustomerDTO> load() throws SQLException, ClassNotFoundException {

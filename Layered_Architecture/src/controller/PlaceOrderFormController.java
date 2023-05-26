@@ -53,8 +53,8 @@ public class PlaceOrderFormController {
     private String orderId;
 
     OrderDAO orderDAO = new OrderDAOImpl();
-    CrudDAO<CustomerDTO,String> customerDAO = new CustomerDAOImpl();
-    CrudDAO<ItemDTO,String> itemDAO = new ItemDAOImpl();
+    CustomerDAO customerDAO = new CustomerDAOImpl();
+    ItemDAO itemDAO = new ItemDAOImpl();
 
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -330,7 +330,7 @@ public class PlaceOrderFormController {
         try {
 
             connection=DBConnection.getDbConnection().getConnection();
-            boolean result1 = orderDAO.exitOrder(orderId);
+            boolean result1 = orderDAO.existOrder(orderId);
 
             /*if order id already exist*/
             if (result1) {

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public interface OrderDAO {
 
 
-    public boolean exitOrder(String orderId) throws SQLException, ClassNotFoundException ;
+    public boolean existOrder(String orderId) throws SQLException, ClassNotFoundException ;
 
     public boolean makeOrder(String orderId, LocalDate orderDate, String customerId) throws SQLException, ClassNotFoundException ;
 

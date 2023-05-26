@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class OrderDAOImpl implements OrderDAO{
 
     @Override
-    public boolean exitOrder(String orderId) throws SQLException, ClassNotFoundException {
+    public boolean existOrder(String orderId) throws SQLException, ClassNotFoundException {
 
         ResultSet resultSet = SQLUtil.execute("SELECT oid FROM `Orders` WHERE oid=?",orderId);
 
