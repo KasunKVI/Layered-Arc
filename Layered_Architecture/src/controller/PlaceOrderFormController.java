@@ -3,7 +3,14 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.*;
+import dao.custom.CustomerDAO;
+import dao.custom.ItemDAO;
+import dao.custom.OrderDAO;
+import dao.custom.OrderDetailDAO;
+import dao.custom.impl.CustomerDAOImpl;
+import dao.custom.impl.ItemDAOImpl;
+import dao.custom.impl.OrderDAOImpl;
+import dao.custom.impl.OrderDetailDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -19,9 +26,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.CustomerDTO;
 import model.ItemDTO;
+import model.OrderDTO;
 import model.OrderDetailDTO;
-import view.tdm.CustomerTM;
-import view.tdm.ItemTM;
 import view.tdm.OrderDetailTM;
 
 import java.io.IOException;
@@ -197,7 +203,7 @@ public class PlaceOrderFormController {
     public String generateNewOrderId() {
         try {
 
-            return orderDAO.generateNewOrderId();
+            return orderDAO.generateNewId();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
@@ -307,7 +313,7 @@ public class PlaceOrderFormController {
 
     public void btnPlaceOrder_OnAction(ActionEvent actionEvent) {
         boolean b = saveOrder(orderId, LocalDate.now(), cmbCustomerId.getValue(),
-                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
+                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(orderId,tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
         if (b) {
             new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
@@ -330,7 +336,7 @@ public class PlaceOrderFormController {
         try {
 
             connection=DBConnection.getDbConnection().getConnection();
-            boolean result1 = orderDAO.existOrder(orderId);
+            boolean result1 = orderDAO.exist(orderId);
 
             /*if order id already exist*/
             if (result1) {
@@ -339,7 +345,7 @@ public class PlaceOrderFormController {
 
             connection.setAutoCommit(false);
 
-            boolean result2 = orderDAO.makeOrder(orderId,orderDate,customerId);
+            boolean result2 = orderDAO.add(new OrderDTO(orderId,orderDate,customerId));
 
 
             if (!result2) {
@@ -354,7 +360,7 @@ public class PlaceOrderFormController {
 
                 OrderDetailDAO orderDetailDAO = new OrderDetailDAOImpl();
 
-                boolean result3 = orderDetailDAO.addOrderDetails(orderId,detail.getItemCode(),detail.getUnitPrice(),detail.getQty());
+                boolean result3 = orderDetailDAO.add(new OrderDetailDTO(orderId,detail.getItemCode(),detail.getQty(),detail.getUnitPrice()));
 
                 if (!result3) {
                     connection.rollback();
