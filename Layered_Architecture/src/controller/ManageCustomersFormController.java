@@ -1,9 +1,10 @@
 package controller;
 
 import bo.custom.CustomerBO;
-import bo.custom.impl.CustomerBOImpl;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import dao.DAOFactory;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +38,7 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
-    CustomerBO customerDAO = new CustomerBOImpl();
+    CustomerBO customerDAO = (CustomerBO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
     public void initialize() {
 
