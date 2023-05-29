@@ -1,11 +1,12 @@
 package bo.custom;
 
+import bo.SuperBO;
 import model.ItemDTO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ItemBO {
+public interface ItemBO extends SuperBO {
 
     public List<ItemDTO> loadAllItems() throws SQLException, ClassNotFoundException;
 
