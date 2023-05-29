@@ -1,6 +1,9 @@
 package bo.custom.impl;
 
 import bo.custom.ItemBO;
+import dao.DAOFactory;
+import dao.custom.CustomerDAO;
+import dao.custom.ItemDAO;
 import dao.custom.impl.ItemDAOImpl;
 import model.ItemDTO;
 
@@ -9,7 +12,7 @@ import java.util.List;
 
 public class ItemBOImpl implements ItemBO {
 
-    ItemDAOImpl itemDAO = new ItemDAOImpl();
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
 
     @Override
     public List<ItemDTO> loadAllItems() throws SQLException, ClassNotFoundException {
